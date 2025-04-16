@@ -37,7 +37,7 @@ mysql==0.0.3
 mysql-connector==2.2.9
 mysqlclient==2.2.7
 namex==0.0.8
-numpy==1.24.4
+numpy==1.24.3
 opt_einsum==3.3.0
 optree==0.14.1
 packaging==24.2
