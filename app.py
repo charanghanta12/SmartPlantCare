@@ -457,7 +457,7 @@ def predict_watering_api():
 def get_image(image_id):
     try:
         image = fs.get(ObjectId(image_id))
-        return Response(image.read(), mimetype=image.content_type)
+        return Response(image.read(), mimetype=image.metadata.get("contentType", "image/jpeg"))
     except:
         abort(404)
 
