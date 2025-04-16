@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Plant Care - Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --primary-dark: #27ae60;
+            --primary-light: #e8f8f0;
+            --secondary-color: #3498db;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --accent-color: #f39c12;
+            --danger-color: #e74c3c;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            --box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            --box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+            --transition-base: all 0.3s ease;
+            --border-radius-sm: 0.25rem;
+            --border-radius: 0.5rem;
+            --border-radius-lg: 1rem;
+            --border-radius-xl: 1.5rem;
+            --border-radius-2xl: 2rem;
+            --border-radius-circle: 50%;
+        }
+
+        /* Base Styles */
+        body {
+            background-color: var(--light-color);
+            font-family: 'Poppins', sans-serif;
+            padding-top: 76px;
+            color: var(--gray-800);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition-base);
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        .btn {
+            font-weight: 500;
+            border-radius: var(--border-radius-lg);
+            padding: 0.6rem 1.5rem;
+            transition: var(--transition-base);
+        }
+
+        .btn-success {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-success:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-outline-success {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-success:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(46, 204, 113, 0.25);
+        }
+
+        .container {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        /* Enhanced Navigation */
+        .navbar {
+            background-color: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+            padding: 0;
+            margin-right: 2rem;
+        }
+
+        .navbar-brand span {
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .navbar-brand span::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            bottom: 0;
+            right: -8px;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.85) !important;
+            font-weight: 500;
+            margin: 0 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.75rem 0;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        /* User Profile */
+        .user-profile {
+            position: relative;
+            margin-left: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 220px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1rem 0;
+            margin-top: 0.75rem;
+            z-index: 1000;
+            display: none;
+            animation: fadeInDown 0.3s ease forwards;
+        }
+
+        .user-profile:hover .user-dropdown {
+            display: block;
+        }
+
+        .user-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-left: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .user-dropdown-item {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--gray-700);
+            transition: var(--transition-base);
+            border-left: 3px solid transparent;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        .user-dropdown-item i {
+            width: 20px;
+            margin-right: 0.5rem;
+            text-align: center;
+        }
+
+        .user-dropdown hr {
+            margin: 0.5rem 0;
+            opacity: 0.1;
+        }
+
+        /* Store Header */
+        .store-header {
+    background: linear-gradient(135deg, var(--dark-color) 0%, #354b60 100%);
+    color: white;
+    padding: 5rem 0;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.store-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+    background-size: cover;
+    opacity: 0.15; /* You can reduce this to 0.10 or less if the image still overpowers the text */
+    z-index: 0;
+}
+
+.store-header .container {
+    position: relative;
+    z-index: 2;
+}
+
+.store-header h1 {
+    color: #ffffff;
+    font-weight: 800;
+    margin-bottom: 1.25rem;
+    font-size: 3rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Stronger shadow to make white pop */
+}
+
+.store-header p {
+    color: #ffffff;
+    font-size: 1.1rem;
+    opacity: 1; /* Full visibility */
+    max-width: 700px;
+    margin: 0 auto 1.25rem;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+        /* Product Cards */
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            height: 100%;
+            border: none;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 30px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .product-img-container {
+            height: 220px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 3;
+            box-shadow: 0 3px 10px rgba(46, 204, 113, 0.3);
+        }
+
+        .product-badge.sale {
+            background-color: var(--accent-color);
+            box-shadow: 0 3px 10px rgba(243, 156, 18, 0.3);
+        }
+
+        .product-badge.new {
+            background-color: var(--secondary-color);
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .product-body {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            height: 50px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-category {
+            color: #777;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-price .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            font-weight: 400;
+        }
+
+        .product-rating {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .product-rating .count {
+            color: #777;
+            font-size: 0.85rem;
+            margin-left: 5px;
+        }
+
+        .btn-add-cart {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+            width: 100%;
+            color: white;
+        }
+
+        .btn-add-cart:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .btn-add-cart i {
+            margin-right: 8px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 90px;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .filter-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--dark-color);
+        }
+
+        .filter-check {
+            margin-bottom: 10px;
+        }
+
+        .filter-check .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .filter-check .form-check-label {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .price-range {
+            margin-top: 15px;
+        }
+
+        .price-inputs {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .price-inputs .form-control {
+            border-radius: 8px;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+        }
+
+        .btn-filter {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .btn-filter:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        /* Shopping Cart */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(46, 204, 113, 0.3);
+        }
+
+        .cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 320px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            padding: 20px;
+            z-index: 1000;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-title {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0;
+        }
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+            color: var(--dark-color);
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .cart-quantity-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-quantity-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .cart-quantity-input {
+            width: 30px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+            margin: 0 5px;
+        }
+
+        .cart-item-remove {
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .cart-item-remove:hover {
+            color: #ff5252;
+        }
+
+        .cart-footer {
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .cart-total-amount {
+            color: var(--primary-color);
+        }
+
+        .btn-checkout {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .btn-checkout:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-view-cart {
+            background-color: transparent;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            color: var(--dark-color);
+        }
+
+        .btn-view-cart:hover {
+            background-color: #f8f9fa;
+            border-color: #ddd;
+        }
+
+        /* Cart Modal */
+        .cart-modal .modal-content {
+            border-radius: 20px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .cart-modal .modal-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-bottom: none;
+            padding: 20px 30px;
+        }
+
+        .cart-modal .modal-title {
+            font-weight: 600;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-modal .modal-title i {
+            margin-right: 10px;
+        }
+
+        .cart-modal .modal-body {
+            padding: 30px;
+        }
+
+        .cart-modal-items {
+            margin-bottom: 30px;
+        }
+
+        .cart-modal-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-modal-item-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .cart-modal-item-details {
+            flex: 1;
+        }
+
+        .cart-modal-item-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+
+        .cart-modal-item-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .cart-modal-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-modal-quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-modal-quantity-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .cart-modal-quantity-input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            margin: 0 10px;
+        }
+
+        .cart-modal-item-remove {
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            font-size: 1.1rem;
+        }
+
+        .cart-modal-item-remove:hover {
+            color: #ff5252;
+        }
+
+        .cart-modal-summary {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-row.total {
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 1.1rem;
+            padding-top: 10px;
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .summary-row.total .summary-value {
+            color: var(--primary-color);
+        }
+
+        /* Checkout Form */
+        .checkout-section {
+            margin-top: 40px;
+        }
+
+        .checkout-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .checkout-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .checkout-form .form-label {
+            font-weight: 500;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+
+        .checkout-form .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .checkout-form .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .payment-methods {
+            margin-bottom: 30px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary-color);
+            background-color: var(--primary-light);
+        }
+
+        .payment-method.active {
+            border-color: var(--primary-color);
+            background-color: var(--primary-light);
+        }
+
+        .payment-method-radio {
+            margin-right: 15px;
+        }
+
+        .payment-method-icon {
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            width: 40px;
+            text-align: center;
+        }
+
+        .payment-method-details {
+            flex: 1;
+        }
+
+        .payment-method-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .payment-method-description {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .credit-card-form {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .credit-card-form.active {
+            display: block;
+        }
+
+        .card-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .card-element {
+            flex: 1;
+        }
+
+        .btn-place-order {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            color: white;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .btn-place-order:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Order Success Modal */
+        .success-modal .modal-content {
+            border-radius: 20px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .success-modal .modal-body {
+            padding: 40px;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: var(--primary-color);
+            font-size: 3rem;
+        }
+
+        .success-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-size: 1.8rem;
+        }
+
+        .order-number {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 20px 0;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .btn-continue-shopping {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .btn-continue-shopping:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+            margin-top: 80px;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--primary-color);
+        }
+
+        .footer-links h5 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            padding-left: 0;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-links ul li a::before {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .footer-links ul li a:hover::before {
+            left: -15px;
+            opacity: 1;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 991px) {
+            .filter-section {
+                margin-bottom: 30px;
+                position: static;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .store-header {
+                padding: 40px 0;
+            }
+
+            .store-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .product-card {
+                margin-bottom: 20px;
+            }
+
+            .cart-dropdown {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .store-header {
+                padding: 30px 0;
+            }
+
+            .store-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .product-body {
+                padding: 15px;
+            }
+
+            .cart-modal-item-img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .card-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .page-item:first-child .page-link {
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+        }
+
+        .page-item:last-child .page-link {
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+        }
+
+        .page-link {
+            padding: 10px 18px;
+            color: var(--dark-color);
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .page-link:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            border-color: var(--primary-light);
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Loader */
+        .loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--primary-light);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            min-width: 280px;
+            display: flex;
+            align-items: center;
+            animation: slideInRight 0.3s ease forwards;
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .toast-icon {
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .toast-message {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+
+        .toast-close {
+            color: var(--gray-500);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .toast-close:hover {
+            color: var(--gray-700);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Smart<span>Plant</span>Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/predict_disease">Disease Detection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/predict_watering">Watering Prediction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/store">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/community">Community</a>
+                    </li>
+                </ul>
+
+                <!-- Cart Icon -->
+                <div class="cart-icon me-4" id="cartIcon">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+
+                    <!-- Cart Dropdown -->
+                    <div class="cart-dropdown" id="cartDropdown">
+                        <div class="cart-header">
+                            <h6 class="cart-title">Your Cart</h6>
+                            <span id="cartDropdownClose" style="cursor: pointer;"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="cart-items" id="cartDropdownItems">
+                            <!-- Cart items will be added here dynamically -->
+                        </div>
+                        <div class="cart-footer">
+                            <div class="cart-total">
+                                <span>Total:</span>
+                                <span class="cart-total-amount" id="cartDropdownTotal">$0.00</span>
+                            </div>
+                            <button class="btn btn-checkout" id="checkoutBtn">Checkout</button>
+                            <button class="btn btn-view-cart" id="viewCartBtn">View Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Profile -->
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar">
+                        JS
+                    </div>
+                    <div class="user-dropdown">
+                        <a href="/profile" class="user-dropdown-item">
+                            <i class="fas fa-user"></i> My Profile
+                        </a>
+                        <a href="/orders" class="user-dropdown-item">
+                            <i class="fas fa-box"></i> My Orders
+                        </a>
+                        <a href="/wishlist" class="user-dropdown-item">
+                            <i class="fas fa-heart"></i> Wishlist
+                        </a>
+                        <a href="/settings" class="user-dropdown-item">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <hr>
+                        <a href="#" class="user-dropdown-item" id="logoutLink">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Store Header -->
+    <div class="store-header text-center">
+        <div class="container">
+            <h1>Farm Fresh Products</h1>
+            <p>Buy farm-fresh vegetables and fruits directly from farmers at fair prices while supporting their livelihoods.</p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Store Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Filters -->
+            <div class="col-lg-3">
+                <div class="filter-section">
+                    <h4 class="filter-title">Filters</h4>
+
+                    <div class="filter-group">
+                        <h5 class="filter-group-title">Categories</h5>
+                        <div class="filter-check">
+                            <input class="form-check-input" type="checkbox" value="vegetables" id="vegetablesCheck" checked>
+                            <label class="form-check-label" for="vegetablesCheck">
+                                Vegetables
+                            </label>
+                        </div>
+                        <div class="filter-check">
+                            <input class="form-check-input" type="checkbox" value="fruits" id="fruitsCheck" checked>
+                            <label class="form-check-label" for="fruitsCheck">
+                                Fruits
+                            </label>
+                        </div>
+                        <div class="filter-check">
+                            <input class="form-check-input" type="checkbox" value="herbs" id="herbsCheck">
+                            <label class="form-check-label" for="herbsCheck">
+                                Herbs
+                            </label>
+                        </div>
+                        <div class="filter-check">
+                            <input class="form-check-input" type="checkbox" value="dairy" id="dairyCheck">
+                            <label class="form-check-label" for="dairyCheck">
+                                Dairy Products
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h5 class="filter-group-title">Price Range</h5>
+                        <div class="price-range">
+                            <input type="range" class="form-range" min="0" max="100" id="priceRange">
+                            <div class="price-inputs">
+                                <input type="number" class="form-control" placeholder="Min" id="minPrice" min="0">
+                                <input type="number" class="form-control" placeholder="Max" id="maxPrice" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h5 class="filter-group-title">Farming Method</h5>
+                        <div class="filter-check">
+                            <input class="form-check-input" type="checkbox" value="organic" id="organicCheck">
+                            <label class="form-check-label" for="organicCheck">
+                                Organic
+                            </label>
+                        </div>
+                        <div class="filter-check">
+                            <input class="form-check-input" type="checkbox" value="conventional" id="conventionalCheck">
+                            <label class="form-check-label" for="conventionalCheck">
+                                Conventional
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-filter" id="applyFilters">Apply Filters</button>
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div class="col-lg-9">
+                <div class="row" id="productsContainer">
+                    <!-- Product 1 -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="product-card fade-in" style="animation-delay: 0.1s;">
+                            <span class="product-badge organic">Organic</span>
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fresh Tomatoes" class="product-img">
+                            </div>
+                            <div class="product-body">
+                                <span class="product-category">Vegetables</span>
+                                <h5 class="product-title">Organic Fresh Tomatoes</h5>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="count">(42)</span>
+                                </div>
+                                <div class="product-price">
+                                    $4.99 <span class="original-price">$6.99</span>
+                                </div>
+                                <button class="btn btn-add-cart" data-id="1" data-name="Organic Fresh Tomatoes" data-price="4.99" data-img="https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="product-card fade-in" style="animation-delay: 0.2s;">
+                            <span class="product-badge new">New</span>
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fresh Strawberries" class="product-img">
+                            </div>
+                            <div class="product-body">
+                                <span class="product-category">Fruits</span>
+                                <h5 class="product-title">Fresh Strawberries</h5>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="count">(28)</span>
+                                </div>
+                                <div class="product-price">
+                                    $5.49
+                                </div>
+                                <button class="btn btn-add-cart" data-id="2" data-name="Fresh Strawberries" data-price="5.49" data-img="https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="product-card fade-in" style="animation-delay: 0.3s;">
+                            <span class="product-badge sale">Sale</span>
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1566842600175-97dca3c5ad8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fresh Carrots" class="product-img">
+                            </div>
+                            <div class="product-body">
+                                <span class="product-category">Vegetables</span>
+                                <h5 class="product-title">Organic Carrots Bundle</h5>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="count">(19)</span>
+                                </div>
+                                <div class="product-price">
+                                    $3.29 <span class="original-price">$4.99</span>
+                                </div>
+                                <button class="btn btn-add-cart" data-id="3" data-name="Organic Carrots Bundle" data-price="3.29" data-img="https://images.unsplash.com/photo-1566842600175-97dca3c5ad8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="product-card fade-in" style="animation-delay: 0.4s;">
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fresh Broccoli" class="product-img">
+                            </div>
+                            <div class="product-body">
+                                <span class="product-category">Vegetables</span>
+                                <h5 class="product-title">Fresh Broccoli</h5>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="count">(15)</span>
+                                </div>
+                                <div class="product-price">
+                                    $2.99
+                                </div>
+                                <button class="btn btn-add-cart" data-id="4" data-name="Fresh Broccoli" data-price="2.99" data-img="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="product-card fade-in" style="animation-delay: 0.5s;">
+                            <span class="product-badge organic">Organic</span>
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1550258987-e8b4a8a9f6cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fresh Blueberries" class="product-img">
+                            </div>
+                            <div class="product-body">
+                                <span class="product-category">Fruits</span>
+                                <h5 class="product-title">Organic Blueberries</h5>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="count">(32)</span>
+                                </div>
+                                <div class="product-price">
+                                    $6.99
+                                </div>
+                                <button class="btn btn-add-cart" data-id="5" data-name="Organic Blueberries" data-price="6.99" data-img="https://images.unsplash.com/photo-1550258987-e8b4a8a9f6cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="product-card fade-in" style="animation-delay: 0.6s;">
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1573246123716-6b1782bfc499?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fresh Spinach" class="product-img">
+                            </div>
+                            <div class="product-body">
+                                <span class="product-category">Vegetables</span>
+                                <h5 class="product-title">Fresh Spinach Bundle</h5>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="count">(21)</span>
+                                </div>
+                                <div class="product-price">
+                                    $3.49
+                                </div>
+                                <button class="btn btn-add-cart" data-id="6" data-name="Fresh Spinach Bundle" data-price="3.49" data-img="https://images.unsplash.com/photo-1573246123716-6b1782bfc499?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal fade cart-modal" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel"><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="cart-modal-items" id="cartModalItems">
+                        <!-- Cart items will be added here dynam  id="cartModalItems">
+                        <!-- Cart items will be added here dynamically -->
+                    </div>
+
+                    <div class="cart-modal-summary">
+                        <div class="summary-row">
+                            <span class="summary-label">Subtotal:</span>
+                            <span class="summary-value" id="cartSubtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Shipping:</span>
+                            <span class="summary-value" id="cartShipping">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Tax (7%):</span>
+                            <span class="summary-value" id="cartTax">$0.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span class="summary-label">Total:</span>
+                            <span class="summary-value" id="cartTotal">$0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="checkout-section">
+                        <h4 class="checkout-title">Shipping Information</h4>
+                        <form class="checkout-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="state" class="form-label">State</label>
+                                    <input type="text" class="form-control" id="state" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="zip" class="form-label">Zip Code</label>
+                                    <input type="text" class="form-control" id="zip" required>
+                                </div>
+                            </div>
+
+                            <h4 class="checkout-title mt-4">Payment Method</h4>
+                            <div class="payment-methods">
+                                <div class="payment-method active" data-method="credit-card">
+                                    <input type="radio" name="paymentMethod" id="creditCard" class="payment-method-radio" checked>
+                                    <div class="payment-method-icon">
+                                        <i class="far fa-credit-card"></i>
+                                    </div>
+                                    <div class="payment-method-details">
+                                        <h6 class="payment-method-title">Credit Card</h6>
+                                        <p class="payment-method-description">Pay with Visa, Mastercard, or American Express</p>
+                                    </div>
+                                </div>
+
+                                <div class="payment-method" data-method="paypal">
+                                    <input type="radio" name="paymentMethod" id="paypal" class="payment-method-radio">
+                                    <div class="payment-method-icon">
+                                        <i class="fab fa-paypal"></i>
+                                    </div>
+                                    <div class="payment-method-details">
+                                        <h6 class="payment-method-title">PayPal</h6>
+                                        <p class="payment-method-description">Pay with your PayPal account</p>
+                                    </div>
+                                </div>
+
+                                <div class="payment-method" data-method="cash">
+                                    <input type="radio" name="paymentMethod" id="cash" class="payment-method-radio">
+                                    <div class="payment-method-icon">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+                                    <div class="payment-method-details">
+                                        <h6 class="payment-method-title">Cash on Delivery</h6>
+                                        <p class="payment-method-description">Pay when you receive your order</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="credit-card-form active" id="creditCardForm">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label for="cardNumber" class="form-label">Card Number</label>
+                                        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                    </div>
+                                </div>
+
+                                <div class="card-row">
+                                    <div class="card-element">
+                                        <label for="cardName" class="form-label">Name on Card</label>
+                                        <input type="text" class="form-control" id="cardName" required>
+                                    </div>
+                                </div>
+
+                                <div class="card-row">
+                                    <div class="card-element">
+                                        <label for="expiryDate" class="form-label">Expiry Date</label>
+                                        <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                                    </div>
+                                    <div class="card-element">
+                                        <label for="cvv" class="form-label">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-place-order" id="placeOrderBtn">
+                                Place Order <i class="fas fa-arrow-right ms-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Success Modal -->
+    <div class="modal fade success-modal" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h3 class="success-title">Order Placed Successfully!</h3>
+                    <p>Thank you for your purchase. Your order has been received and is being processed.</p>
+                    <div class="order-number">
+                        Order #<span id="orderNumber">SP12345</span>
+                    </div>
+                    <p>You will receive an email confirmation shortly.</p>
+                    <button class="btn btn-continue-shopping" data-bs-dismiss="modal">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <h5>Processing your order...</h5>
+            <p>Please do not close this window.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-logo">Smart<span>Plant</span>Care</div>
+                    <p class="mb-4">Using artificial intelligence to help you grow healthier plants with personalized care recommendations.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Features</h5>
+                        <ul>
+                            <li><a href="/predict_disease">Disease Detection</a></li>
+                            <li><a href="/predict_watering">Watering Prediction</a></li>
+                            <li><a href="/my_plants">Plant Tracking</a></li>
+                            <li><a href="/community">Community</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Resources</h5>
+                        <ul>
+                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/guides">Plant Guides</a></li>
+                            <li><a href="/faq">FAQ</a></li>
+                            <li><a href="/support">Support</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Newsletter</h5>
+                        <p>Subscribe to our newsletter for plant care tips and updates.</p>
+                        <form id="newsletterForm">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Your email" aria-label="Your email" required>
+                                <button class="btn btn-success" type="submit">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright text-center">
+                <p>&copy; 2025 Smart Plant Care. All rights reserved.</p>
+                <p class="small">Powered by AI for healthier plants</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cart functionality
+            let cart = [];
+            const cartCount = document.getElementById('cartCount');
+            const cartDropdown = document.getElementById('cartDropdown');
+            const cartIcon = document.getElementById('cartIcon');
+            const cartDropdownItems = document.getElementById('cartDropdownItems');
+            const cartDropdownTotal = document.getElementById('cartDropdownTotal');
+            const cartDropdownClose = document.getElementById('cartDropdownClose');
+            const viewCartBtn = document.getElementById('viewCartBtn');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const toastContainer = document.getElementById('toastContainer');
+
+            // Modal elements
+            const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            const cartModalItems = document.getElementById('cartModalItems');
+            const cartSubtotal = document.getElementById('cartSubtotal');
+            const cartShipping = document.getElementById('cartShipping');
+            const cartTax = document.getElementById('cartTax');
+            const cartTotal = document.getElementById('cartTotal');
+            const placeOrderBtn = document.getElementById('placeOrderBtn');
+            const loader = document.getElementById('loader');
+
+            // Add to cart buttons
+            const addToCartButtons = document.querySelectorAll('.btn-add-cart');
+
+            // Payment method selection
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            const creditCardForm = document.getElementById('creditCardForm');
+
+            // Initialize cart from localStorage if available
+            if (localStorage.getItem('cart')) {
+                cart = JSON.parse(localStorage.getItem('cart'));
+                updateCartCount();
+                updateCartDropdown();
+            }
+
+            // Show toast notification
+            function showToast(title, message, type = 'success') {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <div class="toast-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="toast-content">
+                        <h6 class="toast-title">${title}</h6>
+                        <p class="toast-message">${message}</p>
+                    </div>
+                    <div class="toast-close">
+                        <i class="fas fa-times"></i>
+                    </div>
+                `;
+                toastContainer.appendChild(toast);
+
+                // Auto remove toast after 3 seconds
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                }, 3000);
+
+                // Close toast on click
+                toast.querySelector('.toast-close').addEventListener('click', function() {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                });
+            }
+
+            // Add to cart functionality
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    const img = this.getAttribute('data-img');
+
+                    // Check if item already in cart
+                    const existingItem = cart.find(item => item.id === id);
+
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                        showToast('Updated Cart', `Increased ${name} quantity to ${existingItem.quantity}`);
+                    } else {
+                        cart.push({
+                            id,
+                            name,
+                            price,
+                            img,
+                            quantity: 1
+                        });
+                        showToast('Added to Cart', `${name} has been added to your cart`);
+                    }
+
+                    // Save cart to localStorage
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    // Update cart UI
+                    updateCartCount();
+                    updateCartDropdown();
+
+                    // Show cart dropdown
+                    cartDropdown.style.display = 'block';
+
+                    // Add animation class to button
+                    this.classList.add('animate__animated', 'animate__pulse');
+                    setTimeout(() => {
+                        this.classList.remove('animate__animated', 'animate__pulse');
+                    }, 1000);
+                });
+            });
+
+            // Toggle cart dropdown
+            cartIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (cartDropdown.style.display === 'block') {
+                    cartDropdown.style.display = 'none';
+                } else {
+                    cartDropdown.style.display = 'block';
+                }
+            });
+
+            // Close cart dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!cartIcon.contains(e.target) && !cartDropdown.contains(e.target)) {
+                    cartDropdown.style.display = 'none';
+                }
+            });
+
+            // Close cart dropdown button
+            cartDropdownClose.addEventListener('click', function() {
+                cartDropdown.style.display = 'none';
+            });
+
+            // View cart button
+            viewCartBtn.addEventListener('click', function() {
+                cartDropdown.style.display = 'none';
+                updateCartModal();
+                cartModal.show();
+            });
+
+            // Checkout button
+            checkoutBtn.addEventListener('click', function() {
+                cartDropdown.style.display = 'none';
+                updateCartModal();
+                cartModal.show();
+            });
+
+            // Payment method selection
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    // Remove active class from all methods
+                    paymentMethods.forEach(m => m.classList.remove('active'));
+
+                    // Add active class to clicked method
+                    this.classList.add('active');
+
+                    // Check the radio button
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+
+                    // Show/hide credit card form
+                    if (this.getAttribute('data-method') === 'credit-card') {
+                        creditCardForm.classList.add('active');
+                    } else {
+                        creditCardForm.classList.remove('active');
+                    }
+                });
+            });
+
+            // Place order button
+            placeOrderBtn.addEventListener('click', function() {
+                // Show loader
+                loader.style.display = 'flex';
+
+                // Simulate order processing
+                setTimeout(() => {
+                    // Hide loader
+                    loader.style.display = 'none';
+
+                    // Hide cart modal
+                    cartModal.hide();
+
+                    // Generate random order number
+                    const orderNumber = 'SP' + Math.floor(10000 + Math.random() * 90000);
+                    document.getElementById('orderNumber').textContent = orderNumber;
+
+                    // Show success modal
+                    successModal.show();
+
+                    // Clear cart
+                    cart = [];
+                    localStorage.removeItem('cart');
+                    updateCartCount();
+                    updateCartDropdown();
+                }, 2000);
+            });
+
+            // Update cart count
+            function updateCartCount() {
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                cartCount.textContent = totalItems;
+            }
+
+            // Update cart dropdown
+            function updateCartDropdown() {
+                // Clear cart dropdown
+                cartDropdownItems.innerHTML = '';
+
+                if (cart.length === 0) {
+                    cartDropdownItems.innerHTML = '<p class="text-center py-3">Your cart is empty</p>';
+                    cartDropdownTotal.textContent = '$0.00';
+                    return;
+                }
+
+                // Add items to cart dropdown
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <h6 class="cart-item-title">${item.name}</h6>
+                            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                            <div class="cart-item-quantity">
+                                <button class="cart-quantity-btn minus" data-id="${item.id}">-</button>
+                                <input type="text" class="cart-quantity-input" value="${item.quantity}" readonly>
+                                <button class="cart-quantity-btn plus" data-id="${item.id}">+</button>
+                                <span class="cart-item-remove" data-id="${item.id}"><i class="fas fa-trash-alt"></i></span>
+                            </div>
+                        </div>
+                    `;
+                    cartDropdownItems.appendChild(cartItem);
+                });
+
+                // Add event listeners to quantity buttons
+                const minusButtons = cartDropdownItems.querySelectorAll('.minus');
+                const plusButtons = cartDropdownItems.querySelectorAll('.plus');
+                const removeButtons = cartDropdownItems.querySelectorAll('.cart-item-remove');
+
+                minusButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                            showToast('Updated Cart', `Decreased ${item.name} quantity to ${item.quantity}`);
+                        } else {
+                            cart = cart.filter(item => item.id !== id);
+                            showToast('Removed from Cart', `${item.name} has been removed from your cart`);
+                        }
+
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartCount();
+                        updateCartDropdown();
+                    });
+                });
+
+                plusButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+
+                        item.quantity += 1;
+                        showToast('Updated Cart', `Increased ${item.name} quantity to ${item.quantity}`);
+
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartCount();
+                        updateCartDropdown();
+                    });
+                });
+
+                removeButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        cart = cart.filter(item => item.id !== id);
+
+                        showToast('Removed from Cart', `${item.name} has been removed from your cart`);
+
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartCount();
+                        updateCartDropdown();
+                    });
+                });
+
+                // Update total
+                const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                cartDropdownTotal.textContent = '$' + total.toFixed(2);
+            }
+
+            // Update cart modal
+            function updateCartModal() {
+                // Clear cart modal items
+                cartModalItems.innerHTML = '';
+
+                if (cart.length === 0) {
+                    cartModalItems.innerHTML = '<p class="text-center py-3">Your cart is empty</p>';
+                    cartSubtotal.textContent = '$0.00';
+                    cartShipping.textContent = '$0.00';
+                    cartTax.textContent = '$0.00';
+                    cartTotal.textContent = '$0.00';
+                    return;
+                }
+
+                // Add items to cart modal
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-modal-item';
+                    cartItem.innerHTML = `
+                        <img src="${item.img}" alt="${item.name}" class="cart-modal-item-img">
+                        <div class="cart-modal-item-details">
+                            <h6 class="cart-modal-item-title">${item.name}</h6>
+                            <div class="cart-modal-item-price">$${item.price.toFixed(2)}</div>
+                            <div class="cart-modal-item-quantity">
+                                <button class="cart-modal-quantity-btn minus" data-id="${item.id}">-</button>
+                                <input type="text" class="cart-modal-quantity-input" value="${item.quantity}" readonly>
+                                <button class="cart-modal-quantity-btn plus" data-id="${item.id}">+</button>
+                                <span class="cart-modal-item-remove" data-id="${item.id}"><i class="fas fa-trash-alt"></i></span>
+                            </div>
+                        </div>
+                    `;
+                    cartModalItems.appendChild(cartItem);
+                });
+
+                // Add event listeners to quantity buttons
+                const minusButtons = cartModalItems.querySelectorAll('.minus');
+                const plusButtons = cartModalItems.querySelectorAll('.plus');
+                const removeButtons = cartModalItems.querySelectorAll('.cart-modal-item-remove');
+
+                minusButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                        } else {
+                            cart = cart.filter(item => item.id !== id);
+                        }
+
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartCount();
+                        updateCartModal();
+                        updateCartDropdown();
+                    });
+                });
+
+                plusButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+
+                        item.quantity += 1;
+
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartCount();
+                        updateCartModal();
+                        updateCartDropdown();
+                    });
+                });
+
+                removeButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        cart = cart.filter(item => item.id !== id);
+
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartCount();
+                        updateCartModal();
+                        updateCartDropdown();
+                    });
+                });
+
+                // Calculate totals
+                const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                const shipping = subtotal > 0 ? 5.99 : 0;
+                const tax = subtotal * 0.07;
+                const total = subtotal + shipping + tax;
+
+                // Update totals
+                cartSubtotal.textContent = '$' + subtotal.toFixed(2);
+                cartShipping.textContent = '$' + shipping.toFixed(2);
+                cartTax.textContent = '$' + tax.toFixed(2);
+                cartTotal.textContent = '$' + total.toFixed(2);
+            }
+
+            // Filter functionality
+            const applyFiltersBtn = document.getElementById('applyFilters');
+
+            applyFiltersBtn.addEventListener('click', function() {
+                // Simulate filter application
+                const productsContainer = document.getElementById('productsContainer');
+
+                // Add loading effect
+                productsContainer.style.opacity = '0.5';
+
+                setTimeout(() => {
+                    // Remove loading effect
+                    productsContainer.style.opacity = '1';
+
+                    // Show toast notification
+                    showToast('Filters Applied', 'Your product filters have been applied successfully');
+                }, 800);
+            });
+        });
+    </script>
+</body>
+</html>

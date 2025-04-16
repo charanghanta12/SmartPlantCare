@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Watering Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --primary-dark: #27ae60;
+            --primary-light: #e8f8f0;
+            --secondary-color: #3498db;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --accent-color: #f39c12;
+        }
+
+        body {
+            background-color: var(--light-color);
+            font-family: 'Poppins', sans-serif;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #354b60 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNGOEY5RkEiIGZpbGwtb3BhY2l0eT0iMC4yIj48cGF0aCBkPSJNMzYgMzRjMCAxLjEtLjkgMi0yIDJzLTItLjktMi0yIC45LTIgMi0yIDIgLjkgMiAyem0wLTE3YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMTcgMTdjMCAxLjEtLjkgMi0yIDJzLTItLjktMi0yIC45LTIgMi0yIDIgLjkgMiAyem0wLTE3YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptLTE3IDE3YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMC0xN2MwIDEuMS0uOSAyLTIgMnMtMi0uOS0yLTIgLjktMiAyLTIgMiAuOSAyIDJ6bTE3IDE3YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMC0xN2MwIDEuMS0uOSAyLTIgMnMtMi0uOS0yLTIgLjktMiAyLTIgMiAuOSAyIDJ6Ii8+PC9nPjwvZz48L3N2Zz4=');
+            opacity: 0.2;
+        }
+
+        .header h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            height: 50px;
+            border-radius: 10px;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+            border-color: var(--primary-color);
+            background-color: white;
+        }
+
+        .feature-description {
+            color: #6c757d;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .btn-success {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-success::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn-success:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .btn-success:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .result-box {
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-left: 5px solid;
+        }
+
+        .result-box h3 {
+            font-weight: 600;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .result-box .lead {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .needs-watering {
+            background-color: #fff5f5;
+            border-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .needs-watering::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmOGQ3ZGEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgMnYyMCIvPjxwYXRoIGQ9Ik0yIDEyaDIwIi8+PC9zdmc+');
+            background-repeat: no-repeat;
+            background-position: right 20px top 20px;
+            opacity: 0.1;
+        }
+
+        .no-watering {
+            background-color: #f0fff4;
+            border-color: #d4edda;
+            color: #155724;
+        }
+
+        .no-watering::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNkNGVkZGEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjIgMTEuMDhWMTJhMTAgMTAgMCAxIDEtNS45My05LjE0Ii8+PHBvbHlsaW5lIHBvaW50cz0iMjIgNCAxMiAxNCAxNyA5Ii8+PC9zdmc+');
+            background-repeat: no-repeat;
+            background-position: right 20px top 20px;
+            opacity: 0.1;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        /* Form row styling */
+        .form-row {
+            position: relative;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .form-row:hover {
+            transform: translateX(5px);
+        }
+
+        .form-row::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 0;
+            background-color: var(--primary-color);
+            transition: height 0.3s ease;
+            border-radius: 3px;
+            opacity: 0;
+        }
+
+        .form-row:hover::before {
+            height: 70%;
+            opacity: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            .form-container {
+                padding: 25px;
+            }
+
+            .header {
+                padding: 40px 0;
+            }
+
+            .result-box {
+                padding: 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-container {
+            padding: 40px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            margin: 40px 0;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .loading-animation {
+            position: relative;
+            height: 120px;
+            width: 120px;
+            margin: 0 auto;
+        }
+
+        .droplet-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: droplet-fall 2s infinite;
+        }
+
+        .droplet {
+            width: 20px;
+            height: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            position: relative;
+        }
+
+        .plant-container {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .plant {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            border-radius: 50% 50% 0 0;
+            position: relative;
+            animation: plant-grow 2s infinite alternate;
+        }
+
+        .plant::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: #8B4513;
+            border-radius: 0 0 5px 5px;
+        }
+
+        @keyframes droplet-fall {
+            0% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50%) translateY(80px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes plant-grow {
+            0% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header text-center">
+        <div class="container">
+            <h1>Plant Watering Prediction</h1>
+            <p>Determine if your plant needs watering based on environmental conditions</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="mb-4">
+                    <a href="/" class="btn btn-secondary mb-3">
+                        <i class="fas fa-arrow-left me-2"></i> Back to Home
+                    </a>
+                </div>
+
+                {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                {% if prediction %}
+                <div class="result-box {% if status == 'needs_watering' %}needs-watering{% else %}no-watering{% endif %}">
+                    <h3>Prediction Result</h3>
+                    <p class="lead">{{ prediction }}</p>
+                    {% if status == 'needs_watering' %}
+                    <p><i class="fas fa-tint me-2"></i> Your plant is showing signs of dehydration based on the environmental parameters you provided.</p>
+                    {% else %}
+                    <p><i class="fas fa-check-circle me-2"></i> Your plant's moisture levels appear sufficient based on the current environmental conditions.</p>
+                    {% endif %}
+                </div>
+                <hr class="my-4">
+                <h4 class="section-title">Make another prediction</h4>
+                {% endif %}
+
+                <div class="form-container">
+                    <form method="post" action="/predict_watering">
+                        <div class="row">
+                            <div class="col-md-6 form-row">
+                                <label for="light_intensity" class="form-label">Light Intensity (lux)</label>
+                                <input type="number" step="0.01" class="form-control" id="light_intensity" name="light_intensity" required>
+                                <small class="feature-description"><i class="fas fa-sun me-1"></i> The amount of light hitting your plant (1-10)</small>
+                            </div>
+                            <div class="col-md-6 form-row">
+                                <label for="temperature" class="form-label">Temperature (°C)</label>
+                                <input type="number" step="0.01" class="form-control" id="temperature" name="temperature" required>
+                                <small class="feature-description"><i class="fas fa-thermometer-half me-1"></i> Ambient temperature around the plant</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-row">
+                                <label for="humidity" class="form-label">Humidity (%)</label>
+                                <input type="number" step="0.01" class="form-control" id="humidity" name="humidity" required>
+                                <small class="feature-description"><i class="fas fa-water me-1"></i> Relative humidity in the air</small>
+                            </div>
+                            <div class="col-md-6 form-row">
+                                <label for="soil_moisture" class="form-label">Soil Moisture (%)</label>
+                                <input type="number" step="0.01" class="form-control" id="soil_moisture" name="soil_moisture" required>
+                                <small class="feature-description"><i class="fas fa-seedling me-1"></i> Current moisture level in the soil</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-row">
+                                <label for="soil_temperature" class="form-label">Soil Temperature (°C)</label>
+                                <input type="number" step="0.01" class="form-control" id="soil_temperature" name="soil_temperature" required>
+                                <small class="feature-description"><i class="fas fa-thermometer-quarter me-1"></i> Temperature of the soil</small>
+                            </div>
+                            <div class="col-md-6 form-row">
+                                <label for="soil_ph" class="form-label">Soil pH</label>
+                                <input type="number" step="0.01" class="form-control" id="soil_ph" name="soil_ph" required>
+                                <small class="feature-description"><i class="fas fa-flask me-1"></i> pH level of the soil (1-14)</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-row">
+                                <label for="soil_ec" class="form-label">Soil EC (mS/cm)</label>
+                                <input type="number" step="0.01" class="form-control" id="soil_ec" name="soil_ec" required>
+                                <small class="feature-description"><i class="fas fa-bolt me-1"></i> Electrical conductivity of the soil</small>
+                            </div>
+                            <div class="col-md-6 form-row">
+                                <label for="leaf_temperature" class="form-label">Leaf Temperature (°C)</label>
+                                <input type="number" step="0.01" class="form-control" id="leaf_temperature" name="leaf_temperature" required>
+                                <small class="feature-description"><i class="fas fa-leaf me-1"></i> Temperature of the plant leaves</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-row">
+                                <label for="atmospheric_pressure" class="form-label">Atmospheric Pressure (hPa)</label>
+                                <input type="number" step="0.01" class="form-control" id="atmospheric_pressure" name="atmospheric_pressure" required>
+                                <small class="feature-description"><i class="fas fa-compress-alt me-1"></i> Current atmospheric pressure</small>
+                            </div>
+                            <div class="col-md-6 form-row">
+                                <label for="vapor_density" class="form-label">Vapor Density (g/m³)</label>
+                                <input type="number" step="0.01" class="form-control" id="vapor_density" name="vapor_density" required>
+                                <small class="feature-description"><i class="fas fa-cloud me-1"></i> Water vapor density in the air</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-row">
+                                <label for="heat_index" class="form-label">Heat Index</label>
+                                <input type="number" step="0.01" class="form-control" id="heat_index" name="heat_index" required>
+                                <small class="feature-description"><i class="fas fa-temperature-high me-1"></i> Perceived temperature from humidity and air temperature</small>
+                            </div>
+                            <div class="col-md-6 form-row">
+                                <label for="rain_status" class="form-label">Rain Status</label>
+                                <input type="number" min="0" max="100" class="form-control" id="rain_status" name="rain_status" required>
+                                <small class="feature-description"><i class="fas fa-cloud-rain me-1"></i> Rain probability (0-100)</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-row">
+                                <label for="cloud_status" class="form-label">Cloud Status</label>
+                                <input type="number" min="0" max="100" class="form-control" id="cloud_status" name="cloud_status" required>
+                                <small class="feature-description"><i class="fas fa-cloud me-1"></i> Cloud coverage (0-100)</small>
+                            </div>
+                            <div class="col-md-6 form-row">
+                                <label for="wind_status" class="form-label">Wind Status (km/h)</label>
+                                <input type="number" step="0.01" class="form-control" id="wind_status" name="wind_status" required>
+                                <small class="feature-description"><i class="fas fa-wind me-1"></i> Current wind speed</small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-success btn-lg" id="predict-btn">
+                                <i class="fas fa-tint me-2"></i> Predict Watering Needs
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Loading Animation (hidden by default) -->
+                    <div class="loading-container text-center my-5 d-none" id="loading-container">
+                        <div class="loading-animation">
+                            <div class="droplet-container">
+                                <div class="droplet"></div>
+                            </div>
+                            <div class="plant-container">
+                                <div class="plant"></div>
+                            </div>
+                        </div>
+                        <h4 class="mt-4">Analyzing Environmental Data...</h4>
+                        <p class="text-muted">Our AI is processing your inputs to determine watering needs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>&copy; 2025 Smart Plant Care. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const loadingContainer = document.getElementById('loading-container');
+            const resultBox = document.querySelector('.result-box');
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    // Only show loading if we're not displaying results yet
+                    if (!resultBox) {
+                        e.preventDefault();
+
+                        // Hide the form
+                        form.style.display = 'none';
+
+                        // Show loading animation
+                        loadingContainer.classList.remove('d-none');
+
+                        // Submit the form after a delay to show the animation
+                        setTimeout(() => {
+                            form.submit();
+                        }, 2000);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

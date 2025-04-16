@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --primary-dark: #27ae60;
+            --primary-light: #e8f8f0;
+            --secondary-color: #3498db;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --accent-color: #f39c12;
+            --danger-color: #e74c3c;
+            --success-color: #27ae60;
+        }
+
+        body {
+            background-color: var(--light-color);
+            font-family: 'Poppins', sans-serif;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #354b60 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNGOEY5RkEiIGZpbGwtb3BhY2l0eT0iMC4yIj48cGF0aCBkPSJNMzYgMzRjMCAxLjEtLjkgMi0yIDJzLTItLjktMi0yIC45LTIgMi0yIDIgLjkgMiAyem0wLTE3YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMTcgMTdjMCAxLjEtLjkgMi0yIDJzLTItLjktMi0yIC45LTIgMi0yIDIgLjkgMiAyem0wLTE3YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptLTE3IDE3YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMC0xN2MwIDEuMS0uOSAyLTIgMnMtMi0uOS0yLTIgLjktMiAyLTIgMiAuOSAyIDJ6bTE3IDE3YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMC0xN2MwIDEuMS0uOSAyLTIgMnMtMi0uOS0yLTIgLjktMiAyLTIgMiAuOSAyIDJ6Ii8+PC9nPjwvZz48L3N2Zz4=');
+            opacity: 0.2;
+        }
+
+        .header h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-container, .result-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-container {
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .result-container {
+            border-top: 5px solid var(--secondary-color);
+        }
+
+        .form-container:hover, .result-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .btn-success {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-success::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn-success:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .btn-success:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .result-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .result-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .disease-name {
+            font-weight: 600;
+            color: var(--danger-color);
+            padding: 8px 15px;
+            background-color: rgba(231, 76, 60, 0.1);
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .healthy {
+            color: var(--success-color);
+            padding: 8px 15px;
+            background-color: rgba(46, 204, 113, 0.1);
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .drop-area {
+            border: 2px dashed #ddd;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            background-color: var(--light-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drop-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.05) 0%, rgba(52, 152, 219, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .drop-area:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .drop-area:hover::before {
+            opacity: 1;
+        }
+
+        .drop-area img {
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .drop-area:hover img {
+            transform: scale(1.1);
+        }
+
+        .drop-area p {
+            margin: 0;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .drop-area .text-muted {
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        #file-name {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .treatment-info {
+            background-color: var(--primary-light);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .treatment-info h5 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .treatment-info ul {
+            padding-left: 20px;
+        }
+
+        .treatment-info ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 5px;
+        }
+
+        .treatment-info ul li::marker {
+            color: var(--primary-color);
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .form-container, .result-container {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .form-container, .result-container {
+                padding: 25px;
+            }
+
+            .header {
+                padding: 40px 0;
+            }
+
+            .drop-area {
+                padding: 30px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-container {
+            padding: 30px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            margin-top: 30px;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .scanning-animation {
+            position: relative;
+            height: 120px;
+            width: 120px;
+            margin: 0 auto;
+        }
+
+        .leaf {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-light);
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        .leaf::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 60px;
+            background-color: rgba(46, 204, 113, 0.3);
+            transform: translate(-50%, -50%);
+            border-radius: 5px;
+        }
+
+        .leaf::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 10px;
+            background-color: rgba(46, 204, 113, 0.3);
+            transform: translate(-50%, -50%);
+            border-radius: 5px;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(52, 152, 219, 0.8);
+            box-shadow: 0 0 10px 3px rgba(52, 152, 219, 0.5);
+            animation: scan 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+            }
+            100% {
+                top: 100%;
+            }
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 50px;
+            background-color: #f0f0f0;
+            margin: 0 auto;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header text-center">
+        <div class="container">
+            <h1>Plant Disease Detection</h1>
+            <p>Upload a photo of your plant to detect diseases</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="mb-4">
+                    <a href="/" class="btn btn-secondary mb-3">
+                        <i class="fas fa-arrow-left me-2"></i> Back to Home
+                    </a>
+                </div>
+
+                {% if error %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle me-2"></i> {{ error }}
+                </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-container">
+                            <h3 class="section-title">Upload Plant Image</h3>
+                            <form method="post" action="/api/predict_disease" enctype="multipart/form-data">
+                                <div class="drop-area" id="drop-area" onclick="document.getElementById('image').click();">
+                                    {% if image_id %}
+                                    <img src="{{ url_for('get_image', image_id=image_id) }}" class="result-image" alt="Uploaded plant image">
+                                    {% else %}
+                                    <i class="fas fa-cloud-upload-alt fa-4x mb-3" style="color: var(--primary-color);"></i>
+                                    {% endif %}
+                                    <p>Drag & drop or click to upload an image</p>
+                                    <p class="text-muted">Supports JPG, JPEG, PNG</p>
+                                    <p id="file-name"></p>
+                                </div>
+
+                                <input type="file" class="form-control d-none" id="image" name="image" accept="image/*" onchange="updateFileName(this)">
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-success btn-lg" id="detect-btn">
+                                        <i class="fas fa-search me-2"></i> Detect Disease
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Loading Animation (hidden by default) -->
+                            <div class="loading-container text-center my-4 d-none" id="loading-container">
+                                <div class="scanning-animation">
+                                    <div class="leaf">
+                                        <div class="scan-line"></div>
+                                    </div>
+                                </div>
+                                <h4 class="mt-4">Analyzing Plant Image...</h4>
+                                <p class="text-muted">Our AI is examining your plant for signs of disease</p>
+                                <div class="progress mt-3">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <h5 class="section-title">Tips for better results:</h5>
+                                <ul>
+                                    <li>Make sure the affected area is clearly visible</li>
+                                    <li>Take the photo in good lighting</li>
+                                    <li>Focus on the leaves or affected parts</li>
+                                    <li>Avoid shadows and blurry images</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        {% if prediction %}
+                        <div class="result-container">
+                            <h3 class="section-title">Detection Result</h3>
+
+                            <div class="text-center">
+                                {% if image_id %}
+                                <img src="{{ url_for('get_image', image_id=image_id) }}" class="result-image" alt="Uploaded plant image">
+                                {% endif %}
+                                <div class="mt-3 mb-4">
+                                    <h4>Diagnosis:</h4>
+                                    {% if 'healthy' in prediction.lower() %}
+                                    <p class="healthy"><i class="fas fa-check-circle me-2"></i> {{ prediction }}</p>
+                                    <p>Your plant appears to be healthy! Continue with your current care routine.</p>
+                                    {% else %}
+                                    <p class="disease-name"><i class="fas fa-exclamation-triangle me-2"></i> {{ prediction }}</p>
+
+                                    {% if 'apple scab' in prediction.lower() %}
+                                    <div class="treatment-info">
+                                        <h5><i class="fas fa-prescription-bottle-alt me-2"></i> Treatment Recommendations:</h5>
+                                        <ul>
+                                            <li>Apply fungicide specifically formulated for apple scab</li>
+                                            <li>Remove and destroy infected leaves</li>
+                                            <li>Ensure good air circulation by pruning</li>
+                                            <li>Apply protective fungicide sprays in early spring</li>
+                                        </ul>
+                                    </div>
+
+                                    {% elif 'black rot' in prediction.lower() %}
+                                    <div class="treatment-info">
+                                        <h5><i class="fas fa-prescription-bottle-alt me-2"></i> Treatment Recommendations:</h5>
+                                        <ul>
+                                            <li>Remove all mummified fruits from the plant and surrounding area</li>
+                                            <li>Apply fungicides during the growing season</li>
+                                            <li>Prune to improve air circulation</li>
+                                            <li>Maintain good sanitation practices in your garden</li>
+                                        </ul>
+                                    </div>
+
+                                    {% elif 'rust' in prediction.lower() %}
+                                    <div class="treatment-info">
+                                        <h5><i class="fas fa-prescription-bottle-alt me-2"></i> Treatment Recommendations:</h5>
+                                        <ul>
+                                            <li>Remove nearby juniper plants (alternate host)</li>
+                                            <li>Apply fungicides labeled for rust control</li>
+                                            <li>Remove and destroy heavily infected leaves</li>
+                                            <li>Improve air circulation around plants</li>
+                                        </ul>
+                                    </div>
+
+                                    {% elif 'powdery mildew' in prediction.lower() %}
+                                    <div class="treatment-info">
+                                        <h5><i class="fas fa-prescription-bottle-alt me-2"></i> Treatment Recommendations:</h5>
+                                        <ul>
+                                            <li>Apply fungicide specifically for powdery mildew</li>
+                                            <li>Try a baking soda solution (1 tbsp in 1 gallon of water with a few drops of soap)</li>
+                                            <li>Prune to improve air circulation</li>
+                                            <li>Water at the base of the plant to keep foliage dry</li>
+                                        </ul>
+                                    </div>
+
+                                    {% elif 'leaf spot' in prediction.lower() or 'blight' in prediction.lower() %}
+                                    <div class="treatment-info">
+                                        <h5><i class="fas fa-prescription-bottle-alt me-2"></i> Treatment Recommendations:</h5>
+                                        <ul>
+                                            <li>Remove and destroy infected leaves</li>
+                                            <li>Apply appropriate fungicide</li>
+                                            <li>Avoid overhead watering</li>
+                                            <li>Ensure proper spacing between plants</li>
+                                            <li>Practice crop rotation if possible</li>
+                                        </ul>
+                                    </div>
+
+                                    {% elif 'bacterial' in prediction.lower() %}
+                                    <div class="treatment-info">
+                                        <h5><i class="fas fa-prescription-bottle-alt me-2"></i> Treatment Recommendations:</h5>
+                                        <ul>
+                                            <li>Remove and destroy infected parts</li>
+                                            <li>Apply copper-based bactericide</li>
+                                            <li>Avoid working with plants when wet</li>
+                                            <li>Sanitize gardening tools between uses</li>
+                                            <li>Improve drainage and air circulation</li>
+                                        </ul>
+                                    </div>
+
+                                    {% elif 'spider mite' in prediction.lower() %}
+                                    <div class="treatment-info">
+                                        <h5><i class="fas fa-prescription-bottle-alt me-2"></i> Treatment Recommendations:</h5>
+                                        <ul>
+                                            <li>Spray plants with a strong stream of water</li>
+                                            <li>Apply insecticidal soap or neem oil</li>
+                                            <li>Introduce predatory mites</li>
+                                            <li>Increase humidity around plants</li>
+                                        </ul>
+                                    </div>
+
+                                    {% elif 'virus' in prediction.lower() %}
+                                    <div class="treatment-info">
+                                        <h5><i class="fas fa-prescription-bottle-alt me-2"></i> Treatment Recommendations:</h5>
+                                        <ul>
+                                            <li>Unfortunately, there is no cure for viral infections</li>
+                                            <li>Remove and destroy infected plants to prevent spread</li>
+                                            <li>Control insect vectors like aphids and whiteflies</li>
+                                            <li>Sanitize tools between plants</li>
+                                            <li>Plant resistant varieties in the future</li>
+                                        </ul>
+                                    </div>
+
+                                    {% else %}
+                                    <div class="treatment-info">
+                                        <h5><i class="fas fa-prescription-bottle-alt me-2"></i> General Recommendations:</h5>
+                                        <ul>
+                                            <li>Remove and destroy affected parts</li>
+                                            <li>Improve air circulation around plants</li>
+                                            <li>Avoid overhead watering</li>
+                                            <li>Consider appropriate fungicides or pesticides</li>
+                                            <li>Consult with a local extension office for specific advice</li>
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="result-container">
+                            <h3 class="section-title">How It Works</h3>
+                            <p>Our plant disease detection system uses machine learning to identify common plant diseases from images. Simply take a clear photo of your plant's affected areas and upload it to get an instant diagnosis.</p>
+
+                            <div class="mt-4">
+                                <h5 class="section-title">Our system can detect:</h5>
+                                <ul>
+                                    <li><i class="fas fa-apple-alt me-2 text-success"></i> Apple diseases (scab, black rot, cedar apple rust)</li>
+                                    <li><i class="fas fa-seedling me-2 text-success"></i> Blueberry conditions</li>
+                                    <li><i class="fas fa-seedling me-2 text-success"></i> Cherry diseases (including powdery mildew)</li>
+                                    <li><i class="fas fa-seedling me-2 text-success"></i> Corn/Maize diseases (leaf spot, rust, blight)</li>
+                                    <li><i class="fas fa-seedling me-2 text-success"></i> Grape diseases (black rot, leaf blight)</li>
+                                    <li><i class="fas fa-seedling me-2 text-success"></i> Peach conditions</li>
+                                    <li><i class="fas fa-pepper-hot me-2 text-success"></i> Pepper diseases</li>
+                                    <li><i class="fas fa-seedling me-2 text-success"></i> Potato diseases (early and late blight)</li>
+                                    <li><i class="fas fa-seedling me-2 text-success"></i> Strawberry leaf scorch</li>
+                                    <li><i class="fas fa-seedling me-2 text-success"></i> Tomato diseases (multiple types)</li>
+                                    <li><i class="fas fa-check-circle me-2 text-success"></i> And healthy plants across these species</li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>&copy; 2025 Smart Plant Care. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function updateFileName(input) {
+    const fileName = input.files[0]?.name;
+    document.getElementById('file-name').textContent = fileName || '';
+}
+            // Display preview if file is selected
+           // Display preview if file is selected
+if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const dropArea = document.getElementById('drop-area');
+        const existingImg = dropArea.querySelector('img');
+        if (existingImg) {
+            existingImg.src = e.target.result;
+        } else {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'result-image';
+            img.alt = 'Uploaded plant image';
+            const icon = dropArea.querySelector('i');
+            if (icon) {
+                dropArea.insertBefore(img, icon.nextSibling);
+            } else {
+                dropArea.insertBefore(img, dropArea.firstChild);
+            }
+        }
+    }
+    reader.readAsDataURL(input.files[0]);
+}
+
+        // Drag and drop functionality
+        const dropArea = document.getElementById('drop-area');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            dropArea.classList.add('bg-light');
+        }
+
+        function unhighlight() {
+            dropArea.classList.remove('bg-light');
+        }
+
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            const input = document.getElementById('image');
+            input.files = files;
+            updateFileName(input);
+        }
+
+        // Loading animation and form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const loadingContainer = document.getElementById('loading-container');
+            const resultContainer = document.querySelector('.result-container');
+            const progressBar = document.querySelector('.progress-bar');
+
+            if (form && !document.querySelector('.disease-name') && !document.querySelector('.healthy')) {
+                form.addEventListener('submit', function(e) {
+                    // Only show loading if we're not already displaying results
+                    if (!document.querySelector('.disease-name') && !document.querySelector('.healthy')) {
+                        e.preventDefault();
+
+                        // Hide the form
+                        form.style.display = 'none';
+
+                        // Show loading animation
+                        loadingContainer.classList.remove('d-none');
+
+                        // Animate progress bar
+                        let progress = 0;
+                        const interval = setInterval(() => {
+                            progress += 5;
+                            progressBar.style.width = progress + '%';
+                            progressBar.setAttribute('aria-valuenow', progress);
+
+                            if (progress >= 100) {
+                                clearInterval(interval);
+                                // Submit the form after progress reaches 100%
+                                setTimeout(() => {
+                                    form.submit();
+                                }, 500);
+                            }
+                        }, 100);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

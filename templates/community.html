@@ -1,0 +1,2272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - Smart Plant Care</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --primary-dark: #27ae60;
+            --primary-light: #e8f8f0;
+            --secondary-color: #3498db;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --accent-color: #f39c12;
+            --danger-color: #e74c3c;
+            --success-color: #2ecc71;
+            --info-color: #3498db;
+            --warning-color: #f39c12;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 76px;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Navigation */
+        .navbar {
+            background-color: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+            padding: 0;
+            margin-right: 2rem;
+        }
+
+        .navbar-brand span {
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .navbar-brand span::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            bottom: 0;
+            right: -8px;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.85) !important;
+            font-weight: 500;
+            margin: 0 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.75rem 0;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Enhanced Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #f8f9fa;
+            clip-path: polygon(0 100%, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .page-header .lead {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Enhanced Community Tabs */
+        .community-tabs {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 10px;
+            margin-bottom: 30px;
+        }
+
+        .community-tabs .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 500;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .community-tabs .nav-link.active {
+            background-color: var(--primary-color);
+            color: white !important;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        .community-tabs .nav-link:hover:not(.active) {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Post Card */
+        .post-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 25px;
+            border: none;
+            background-color: white;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .post-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 2px solid var(--primary-light);
+        }
+
+        .post-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-user-info h6 {
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .post-user-info p {
+            margin-bottom: 0;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .post-content {
+            padding: 20px;
+        }
+
+        .post-text {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .post-image-container {
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .post-image {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .post-card:hover .post-image {
+            transform: scale(1.03);
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .post-tag {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .post-tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .post-actions {
+            display: flex;
+            border-top: 1px solid #f5f5f5;
+            padding: 15px 20px;
+        }
+
+        .post-action {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            color: #777;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .post-action:hover {
+            color: var(--primary-color);
+        }
+
+        .post-action i {
+            margin-right: 5px;
+        }
+
+        .post-action.liked {
+            color: var(--danger-color);
+        }
+
+        /* Enhanced Create Post */
+        .create-post {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .create-post:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .create-post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .create-post-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 2px solid var(--primary-light);
+        }
+
+        .create-post-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .create-post-input {
+            flex-grow: 1;
+        }
+
+        .create-post-input textarea {
+            width: 100%;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            resize: none;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .create-post-input textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+        }
+
+        .create-post-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .post-attachments {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .post-attachment {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            color: #777;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        .post-attachment:hover {
+            color: var(--primary-color);
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .post-attachment i {
+            margin-right: 5px;
+        }
+
+        .btn-post {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        .btn-post:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        /* Enhanced Sidebar */
+        .community-sidebar {
+            position: sticky;
+            top: 90px;
+        }
+
+        .sidebar-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sidebar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .trending-topics {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .trending-topic {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .trending-topic:hover {
+            transform: translateX(5px);
+        }
+
+        .trending-topic:last-child {
+            border-bottom: none;
+        }
+
+        .trending-topic-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .trending-topic:hover .trending-topic-icon {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotate(10deg);
+        }
+
+        .trending-topic-info {
+            flex-grow: 1;
+        }
+
+        .trending-topic-info h6 {
+            margin-bottom: 3px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .trending-topic-info p {
+            margin-bottom: 0;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Enhanced Upcoming Events */
+        .upcoming-event {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upcoming-event:hover {
+            transform: translateX(5px);
+        }
+
+        .upcoming-event:last-child {
+            border-bottom: none;
+        }
+
+        .event-date {
+            width: 50px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .upcoming-event:hover .event-date {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .event-date-day {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .event-date-month {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .event-info {
+            flex-grow: 1;
+        }
+
+        .event-info h6 {
+            margin-bottom: 3px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .event-info p {
+            margin-bottom: 0;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .event-info .event-location {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .event-info .event-location i {
+            margin-right: 5px;
+            font-size: 0.7rem;
+        }
+
+        /* Enhanced Community Members */
+        .community-members {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .community-member {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .community-member:hover {
+            transform: scale(1.2);
+            z-index: 1;
+            border-color: var(--primary-color);
+        }
+
+        .community-member img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .see-all-members {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .see-all-members:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.2);
+        }
+
+        /* Enhanced Search Box */
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            padding-left: 40px;
+            border-radius: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            padding: 12px 20px 12px 40px;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus + .search-icon {
+            color: var(--primary-color);
+        }
+
+        /* Enhanced Comments Section */
+        .comments-section {
+            padding: 15px 20px;
+            border-top: 1px solid #f5f5f5;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .comments-section.show {
+            display: block;
+        }
+
+        .comment {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 2px solid var(--primary-light);
+        }
+
+        .comment-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comment-content {
+            flex-grow: 1;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 10px 15px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .comment-content::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 15px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid #f8f9fa;
+        }
+
+        .comment-user {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .comment-text {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+
+        .comment-actions {
+            display: flex;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .comment-action {
+            margin-right: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .comment-action:hover {
+            color: var(--primary-color);
+        }
+
+        .comment-time {
+            margin-left: auto;
+            color: #aaa;
+        }
+
+        .add-comment {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .add-comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 2px solid var(--primary-light);
+        }
+
+        .add-comment-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .add-comment-input {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .add-comment-input input {
+            width: 100%;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            padding: 10px 40px 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .add-comment-input input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+        }
+
+        .add-comment-input button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-comment-input button:hover {
+            color: var(--primary-dark);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        /* Enhanced Events Tab */
+        .event-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .event-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .event-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+            z-index: 1;
+        }
+
+        /* Enhanced Groups Tab */
+        .group-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .group-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .group-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .group-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        /* Enhanced Marketplace Tab */
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .product-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+            z-index: 1;
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+            margin-top: 80px;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        .footer h5 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            padding-left: 0;
+        }
+
+        .footer ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer ul li a::before {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .footer ul li a:hover::before {
+            left: -15px;
+            opacity: 1;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer .input-group .form-control {
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            padding-left: 20px;
+        }
+
+        .footer .input-group .btn {
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+            padding-right: 20px;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 15px 25px;
+            animation: fadeInRight 0.3s ease, fadeOutRight 0.3s ease 2.7s;
+            max-width: 350px;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 991px) {
+            .community-sidebar {
+                position: static;
+                margin-bottom: 30px;
+            }
+
+            .community-tabs .nav-link {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .page-header {
+                padding: 40px 0;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .community-tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+                flex-wrap: nowrap;
+                padding-bottom: 5px;
+            }
+
+            .community-tabs .nav-link {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+
+            .post-attachments {
+                flex-wrap: wrap;
+            }
+
+            .post-attachment {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .page-header {
+                padding: 30px 0;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .create-post-actions {
+                flex-direction: column;
+            }
+
+            .post-attachments {
+                margin-bottom: 15px;
+            }
+
+            .btn-post {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Smart<span>Plant</span>Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="my-plants.html">My Plants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="community.html">Community</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="disease-detection.html">Disease Detection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="watering-prediction.html">Watering Prediction</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown me-3">
+                        <a href="#" class="text-white position-relative" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                3
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="notificationDropdown" style="min-width: 300px;">
+                            <h6 class="dropdown-header">Notifications</h6>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item d-flex align-items-center py-2">
+                                <div class="me-3">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="User" class="rounded-circle" width="40" height="40">
+                                </div>
+                                <div>
+                                    <p class="mb-0"><strong>Emma Johnson</strong> commented on your post</p>
+                                    <small class="text-muted">2 hours ago</small>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item d-flex align-items-center py-2">
+                                <div class="me-3">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="User" class="rounded-circle" width="40" height="40">
+                                </div>
+                                <div>
+                                    <p class="mb-0"><strong>Michael Chen</strong> liked your photo</p>
+                                    <small class="text-muted">5 hours ago</small>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item d-flex align-items-center py-2">
+                                <div class="me-3">
+                                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-0">Upcoming event: <strong>Plant Swap Meet</strong></p>
+                                    <small class="text-muted">Tomorrow, 10:00 AM</small>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item text-center text-primary">View all notifications</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                                <span>JD</span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="fw-bold">Community</h1>
+                    <p class="lead mb-0">Connect with plant enthusiasts, share tips, and join events</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-md-end mb-0">
+                            <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
+                            <li class="breadcrumb-item active text-white" aria-current="page">Community</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Community Tabs -->
+        <ul class="nav nav-pills mb-4 community-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="feed-tab" data-bs-toggle="pill" href="#feed">Community Feed</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="events-tab" data-bs-toggle="pill" href="#events">Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="groups-tab" data-bs-toggle="pill" href="#groups">Groups</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="marketplace-tab" data-bs-toggle="pill" href="#marketplace">Marketplace</a>
+            </li>
+        </ul>
+
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <div class="tab-content">
+                    <!-- Feed Tab -->
+                    <div class="tab-pane fade show active" id="feed">
+                        <!-- Create Post -->
+                        <div class="create-post">
+                            <div class="create-post-header">
+                                <div class="create-post-avatar">
+                                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Your Avatar">
+                                </div>
+                                <div class="create-post-input">
+                                    <textarea rows="3" placeholder="Share your plant journey or ask for advice..."></textarea>
+                                </div>
+                            </div>
+                            <div class="create-post-actions">
+                                <div class="post-attachments">
+                                    <div class="post-attachment">
+                                        <i class="fas fa-image"></i>
+                                        <span>Photo</span>
+                                    </div>
+                                    <div class="post-attachment">
+                                        <i class="fas fa-video"></i>
+                                        <span>Video</span>
+                                    </div>
+                                    <div class="post-attachment">
+                                        <i class="fas fa-hashtag"></i>
+                                        <span>Tag</span>
+                                    </div>
+                                </div>
+                                <button class="btn-post">Post</button>
+                            </div>
+                        </div>
+
+                        <!-- Posts -->
+                        <div class="post-card">
+                            <div class="post-header">
+                                <div class="post-avatar">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="User Avatar">
+                                </div>
+                                <div class="post-user-info">
+                                    <h6>Emma Johnson</h6>
+                                    <p>2 hours ago · Portland, OR</p>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <p class="post-text">Just repotted my monstera and it's already showing new growth! Anyone else notice their plants grow faster after repotting?</p>
+                                <div class="post-image-container">
+                                    <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post Image" class="post-image">
+                                </div>
+                                <div class="post-tags">
+                                    <span class="post-tag">#monstera</span>
+                                    <span class="post-tag">#repotting</span>
+                                    <span class="post-tag">#plantcare</span>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <div class="post-action" onclick="toggleLike(this)">
+                                    <i class="far fa-heart"></i>
+                                    <span>24 Likes</span>
+                                </div>
+                                <div class="post-action" onclick="toggleComments(this)">
+                                    <i class="far fa-comment"></i>
+                                    <span>8 Comments</span>
+                                </div>
+                                <div class="post-action">
+                                    <i class="far fa-share-square"></i>
+                                    <span>Share</span>
+                                </div>
+                            </div>
+                            <div class="comments-section">
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="User Avatar">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-user">Michael Chen</div>
+                                        <p class="comment-text">My monstera doubled in size after repotting. I think it's the fresh soil and more room for the roots.</p>
+                                        <div class="comment-actions">
+                                            <span class="comment-action">Like</span>
+                                            <span class="comment-action">Reply</span>
+                                            <span class="comment-time">1 hour ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="User Avatar">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-user">Sophia Williams</div>
+                                        <p class="comment-text">What soil mix did you use? I'm planning to repot mine soon!</p>
+                                        <div class="comment-actions">
+                                            <span class="comment-action">Like</span>
+                                            <span class="comment-action">Reply</span>
+                                            <span class="comment-time">45 minutes ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="add-comment">
+                                    <div class="add-comment-avatar">
+                                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Your Avatar">
+                                    </div>
+                                    <div class="add-comment-input">
+                                        <input type="text" placeholder="Write a comment...">
+                                        <button><i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="post-card">
+                            <div class="post-header">
+                                <div class="post-avatar">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="User Avatar">
+                                </div>
+                                <div class="post-user-info">
+                                    <h6>Michael Chen</h6>
+                                    <p>5 hours ago · Seattle, WA</p>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <p class="post-text">Help! My fiddle leaf fig is dropping leaves. I water it once a week and it gets indirect sunlight. Any advice?</p>
+                                <div class="post-image-container">
+                                    <img src="https://images.unsplash.com/photo-1616500163246-0ffbb43be4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post Image" class="post-image">
+                                </div>
+                                <div class="post-tags">
+                                    <span class="post-tag">#help</span>
+                                    <span class="post-tag">#fiddleleaffig</span>
+                                    <span class="post-tag">#troubleshooting</span>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <div class="post-action" onclick="toggleLike(this)">
+                                    <i class="far fa-heart"></i>
+                                    <span>5 Likes</span>
+                                </div>
+                                <div class="post-action" onclick="toggleComments(this)">
+                                    <i class="far fa-comment"></i>
+                                    <span>15 Comments</span>
+                                </div>
+                                <div class="post-action">
+                                    <i class="far fa-share-square"></i>
+                                    <span>Share</span>
+                                </div>
+                            </div>
+                            <div class="comments-section">
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="User Avatar">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-user">Sophia Williams</div>
+                                        <p class="comment-text">Fiddle leaf figs are sensitive to changes. Check if it's near a draft or if you've moved it recently. Also, they prefer to dry out between waterings.</p>
+                                        <div class="comment-actions">
+                                            <span class="comment-action">Like</span>
+                                            <span class="comment-action">Reply</span>
+                                            <span class="comment-time">4 hours ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="add-comment">
+                                    <div class="add-comment-avatar">
+                                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Your Avatar">
+                                    </div>
+                                    <div class="add-comment-input">
+                                        <input type="text" placeholder="Write a comment...">
+                                        <button><i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="post-card">
+                            <div class="post-header">
+                                <div class="post-avatar">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="User Avatar">
+                                </div>
+                                <div class="post-user-info">
+                                    <h6>Sophia Williams</h6>
+                                    <p>1 day ago · Austin, TX</p>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <p class="post-text">Just visited the botanical garden today and got inspired to expand my indoor jungle! Who else is addicted to buying new plants? 🌿</p>
+                                <div class="post-image-container">
+                                    <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post Image" class="post-image">
+                                </div>
+                                <div class="post-tags">
+                                    <span class="post-tag">#plantaddiction</span>
+                                    <span class="post-tag">#botanicalgarden</span>
+                                    <span class="post-tag">#indoorjungle</span>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <div class="post-action" onclick="toggleLike(this)">
+                                    <i class="far fa-heart"></i>
+                                    <span>42 Likes</span>
+                                </div>
+                                <div class="post-action" onclick="toggleComments(this)">
+                                    <i class="far fa-comment"></i>
+                                    <span>12 Comments</span>
+                                </div>
+                                <div class="post-action">
+                                    <i class="far fa-share-square"></i>
+                                    <span>Share</span>
+                                </div>
+                            </div>
+                            <div class="comments-section">
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="User Avatar">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-user">Emma Johnson</div>
+                                        <p class="comment-text">I'm definitely guilty of plant addiction! My living room is basically a greenhouse now. 😂</p>
+                                        <div class="comment-actions">
+                                            <span class="comment-action">Like</span>
+                                            <span class="comment-action">Reply</span>
+                                            <span class="comment-time">20 hours ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="add-comment">
+                                    <div class="add-comment-avatar">
+                                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Your Avatar">
+                                    </div>
+                                    <div class="add-comment-input">
+                                        <input type="text" placeholder="Write a comment...">
+                                        <button><i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Load More Button -->
+                        <div class="text-center mb-5">
+                            <button class="btn btn-outline-success px-4 py-2">Load More</button>
+                        </div>
+                    </div>
+
+                    <!-- Events Tab -->
+                    <div class="tab-pane fade" id="events">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card event-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Event Image" class="card-img-top">
+                                        <div class="event-badge">
+                                            <span>Apr 15</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Plant Swap Meet</h5>
+                                        <p class="card-text">Bring your plant cuttings and trade with other plant enthusiasts!</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-calendar-alt text-success me-2"></i>
+                                            <span>April 15, 2025 • 10:00 AM - 2:00 PM</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                            <span>Community Garden, 123 Green St</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-users text-success me-2"></i>
+                                            <span>28 people attending</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">RSVP</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card event-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Event Image" class="card-img-top">
+                                        <div class="event-badge">
+                                            <span>Apr 22</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Succulent Care Workshop</h5>
+                                        <p class="card-text">Learn how to properly care for your succulents and create beautiful arrangements.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-calendar-alt text-success me-2"></i>
+                                            <span>April 22, 2025 • 6:00 PM - 8:00 PM</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                            <span>Green Thumb Nursery, 456 Plant Ave</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-users text-success me-2"></i>
+                                            <span>15 people attending</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">RSVP</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card event-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Event Image" class="card-img-top">
+                                        <div class="event-badge">
+                                            <span>May 5</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Urban Gardening Seminar</h5>
+                                        <p class="card-text">Tips and tricks for growing plants in small spaces and urban environments.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-calendar-alt text-success me-2"></i>
+                                            <span>May 5, 2025 • 1:00 PM - 4:00 PM</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                            <span>City Library, 789 Main St</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-users text-success me-2"></i>
+                                            <span>42 people attending</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">RSVP</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card event-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Event Image" class="card-img-top">
+                                        <div class="event-badge">
+                                            <span>May 12</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Herb Gardening Workshop</h5>
+                                        <p class="card-text">Learn how to grow and maintain your own herb garden for cooking and medicinal purposes.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-calendar-alt text-success me-2"></i>
+                                            <span>May 12, 2025 • 5:30 PM - 7:30 PM</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                            <span>Community Center, 567 Garden Blvd</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-users text-success me-2"></i>
+                                            <span>23 people attending</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">RSVP</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Create Event Button -->
+                        <div class="text-center mb-5">
+                            <button class="btn btn-success px-4 py-2">
+                                <i class="fas fa-plus me-2"></i> Create Event
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Groups Tab -->
+                    <div class="tab-pane fade" id="groups">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card group-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1530968464165-7a1861cbaf9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Group Image" class="card-img-top">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Indoor Plant Enthusiasts</h5>
+                                        <p class="card-text">A group for sharing tips, tricks, and photos of indoor plants.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-users text-success me-2"></i>
+                                            <span>1,245 members</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-globe text-success me-2"></i>
+                                            <span>Public Group</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">Join Group</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card group-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1459156212016-c812468e2115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Group Image" class="card-img-top">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Succulent Lovers</h5>
+                                        <p class="card-text">For those who can't get enough of these water-wise beauties.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-users text-success me-2"></i>
+                                            <span>876 members</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-globe text-success me-2"></i>
+                                            <span>Public Group</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">Join Group</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card group-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Group Image" class="card-img-top">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Urban Gardeners</h5>
+                                        <p class="card-text">Growing food and flowers in city spaces, balconies, and rooftops.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-users text-success me-2"></i>
+                                            <span>932 members</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-globe text-success me-2"></i>
+                                            <span>Public Group</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">Join Group</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card group-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1526565782131-a13074f0df52?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Group Image" class="card-img-top">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Plant Propagation Exchange</h5>
+                                        <p class="card-text">Share, trade, and exchange plant cuttings and propagations.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-users text-success me-2"></i>
+                                            <span>654 members</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-globe text-success me-2"></i>
+                                            <span>Public Group</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">Join Group</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Create Group Button -->
+                        <div class="text-center mb-5">
+                            <button class="btn btn-success px-4 py-2">
+                                <i class="fas fa-plus me-2"></i> Create Group
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Marketplace Tab -->
+                    <div class="tab-pane fade" id="marketplace">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card product-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Product Image" class="card-img-top">
+                                        <div class="product-badge">
+                                            <span>$25</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Monstera Deliciosa Cutting</h5>
+                                        <p class="card-text">Healthy cutting with 2 leaves and aerial roots, ready to plant.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                            <span>Portland, OR</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-user text-success me-2"></i>
+                                            <span>Listed by Emma Johnson</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">Contact Seller</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card product-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Product Image" class="card-img-top">
+                                        <div class="product-badge">
+                                            <span>$15</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Handmade Ceramic Plant Pot</h5>
+                                        <p class="card-text">6-inch ceramic pot with drainage hole, perfect for succulents.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                            <span>Seattle, WA</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-user text-success me-2"></i>
+                                            <span>Listed by Michael Chen</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">Contact Seller</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card product-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1616500163246-0ffbb43be4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Product Image" class="card-img-top">
+                                        <div class="product-badge">
+                                            <span>$40</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Fiddle Leaf Fig - 2ft Tall</h5>
+                                        <p class="card-text">Healthy fiddle leaf fig in 10-inch pot, approximately 2 feet tall.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                            <span>Austin, TX</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-user text-success me-2"></i>
+                                            <span>Listed by Sophia Williams</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">Contact Seller</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="post-card product-card">
+                                    <div class="position-relative">
+                                        <img src="https://images.unsplash.com/photo-1446071103084-c257b5f70672?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Product Image" class="card-img-top">
+                                        <div class="product-badge">
+                                            <span>$20</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Organic Potting Soil - 10L</h5>
+                                        <p class="card-text">Premium organic potting mix, perfect for houseplants and container gardens.</p>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                            <span>Denver, CO</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-user text-success me-2"></i>
+                                            <span>Listed by David Wilson</span>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success">Contact Seller</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- List Item Button -->
+                        <div class="text-center mb-5">
+                            <button class="btn btn-success px-4 py-2">
+                                <i class="fas fa-plus me-2"></i> List an Item
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="community-sidebar">
+                    <!-- Search Box -->
+                    <div class="search-box">
+                        <input type="text" class="form-control" placeholder="Search community...">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+
+                    <!-- Trending Topics -->
+                    <div class="sidebar-card">
+                        <h5 class="sidebar-title">Trending Topics</h5>
+                        <ul class="trending-topics">
+                            <li class="trending-topic">
+                                <div class="trending-topic-icon">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                                <div class="trending-topic-info">
+                                    <h6>#monstera</h6>
+                                    <p>125 posts this week</p>
+                                </div>
+                            </li>
+                            <li class="trending-topic">
+                                <div class="trending-topic-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <div class="trending-topic-info">
+                                    <h6>#propagation</h6>
+                                    <p>98 posts this week</p>
+                                </div>
+                            </li>
+                            <li class="trending-topic">
+                                <div class="trending-topic-icon">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <div class="trending-topic-info">
+                                    <h6>#watering</h6>
+                                    <p>87 posts this week</p>
+                                </div>
+                            </li>
+                            <li class="trending-topic">
+                                <div class="trending-topic-icon">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <div class="trending-topic-info">
+                                    <h6>#lighting</h6>
+                                    <p>76 posts this week</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Upcoming Events -->
+                    <div class="sidebar-card">
+                        <h5 class="sidebar-title">Upcoming Events</h5>
+                        <div class="upcoming-event">
+                            <div class="event-date">
+                                <span class="event-date-day">15</span>
+                                <span class="event-date-month">Apr</span>
+                            </div>
+                            <div class="event-info">
+                                <h6>Plant Swap Meet</h6>
+                                <p>10:00 AM - 2:00 PM</p>
+                                <div class="event-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Community Garden</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-event">
+                            <div class="event-date">
+                                <span class="event-date-day">22</span>
+                                <span class="event-date-month">Apr</span>
+                            </div>
+                            <div class="event-info">
+                                <h6>Succulent Care Workshop</h6>
+                                <p>6:00 PM - 8:00 PM</p>
+                                <div class="event-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Green Thumb Nursery</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-event">
+                            <div class="event-date">
+                                <span class="event-date-day">5</span>
+                                <span class="event-date-month">May</span>
+                            </div>
+                            <div class="event-info">
+                                <h6>Urban Gardening Seminar</h6>
+                                <p>1:00 PM - 4:00 PM</p>
+                                <div class="event-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>City Library</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Community Members -->
+                    <div class="sidebar-card">
+                        <h5 class="sidebar-title">Active Members</h5>
+                        <div class="community-members">
+                            <div class="community-member">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Member">
+                            </div>
+                            <div class="community-member">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Member">
+                            </div>
+                            <div class="community-member">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Member">
+                            </div>
+                            <div class="community-member">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Member">
+                            </div>
+                            <div class="community-member">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Member">
+                            </div>
+                            <div class="community-member">
+                                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Member">
+                            </div>
+                            <div class="community-member">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Member">
+                            </div>
+                            <div class="community-member">
+                                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Member">
+                            </div>
+                            <div class="see-all-members">
+                                <span>+42</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-3">Smart Plant Care</h5>
+                    <p class="mb-4">Using AI to help you grow healthier plants with personalized care recommendations.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h6 class="mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="my-plants.html" class="text-white text-decoration-none">My Plants</a></li>
+                        <li class="mb-2"><a href="community.html" class="text-white text-decoration-none">Community</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h6 class="mb-3">Features</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="disease-detection.html" class="text-white text-decoration-none">Disease Detection</a></li>
+                        <li class="mb-2"><a href="watering-prediction.html" class="text-white text-decoration-none">Watering Prediction</a></li>
+                        <li class="mb-2"><a href="my-plants.html" class="text-white text-decoration-none">Plant Tracking</a></li>
+                        <li><a href="store.html" class="text-white text-decoration-none">Plant Shop</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h6 class="mb-3">Newsletter</h6>
+                    <p class="mb-3">Subscribe to our newsletter for plant care tips and updates.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Your email" aria-label="Your email">
+                        <button class="btn btn-success" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 Smart Plant Care. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle like function
+        function toggleLike(element) {
+            element.classList.toggle('liked');
+            const icon = element.querySelector('i');
+            const countSpan = element.querySelector('span');
+            const currentText = countSpan.textContent;
+            const currentCount = parseInt(currentText.match(/\d+/)[0]);
+
+            if (element.classList.contains('liked')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                countSpan.textContent = `${currentCount + 1} Likes`;
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                countSpan.textContent = `${currentCount - 1} Likes`;
+            }
+        }
+
+        // Toggle comments section
+        function toggleComments(element) {
+            const postCard = element.closest('.post-card');
+            const commentsSection = postCard.querySelector('.comments-section');
+            commentsSection.classList.toggle('show');
+        }
+
+        // Create post functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const createPostTextarea = document.querySelector('.create-post-input textarea');
+            const postButton = document.querySelector('.btn-post');
+
+            postButton.addEventListener('click', function() {
+                const postContent = createPostTextarea.value.trim();
+                if (postContent) {
+                    // Create new post
+                    createNewPost(postContent);
+                    // Clear textarea
+                    createPostTextarea.value = '';
+                    // Show notification
+                    showNotification('Your post has been published!', 'success');
+                }
+            });
+
+            // Add comment functionality
+            const commentInputs = document.querySelectorAll('.add-comment-input input');
+            commentInputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && this.value.trim() !== '') {
+                        const commentSection = this.closest('.comments-section');
+                        const newComment = document.createElement('div');
+                        newComment.className = 'comment';
+                        newComment.innerHTML = `
+                            <div class="comment-avatar">
+                                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Your Avatar">
+                            </div>
+                            <div class="comment-content">
+                                <div class="comment-user">John Doe</div>
+                                <p class="comment-text">${this.value}</p>
+                                <div class="comment-actions">
+                                    <span class="comment-action">Like</span>
+                                    <span class="comment-action">Reply</span>
+                                    <span class="comment-time">Just now</span>
+                                </div>
+                            </div>
+                        `;
+
+                        // Insert before the add comment section
+                        const addComment = this.closest('.add-comment');
+                        commentSection.insertBefore(newComment, addComment);
+
+                        // Clear input
+                        this.value = '';
+
+                        // Update comment count
+                        const postCard = commentSection.closest('.post-card');
+                        const commentAction = postCard.querySelector('.post-action:nth-child(2)');
+                        const commentCountSpan = commentAction.querySelector('span');
+                        const currentText = commentCountSpan.textContent;
+                        const currentCount = parseInt(currentText.match(/\d+/)[0]);
+                        commentCountSpan.textContent = `${currentCount + 1} Comments`;
+                    }
+                });
+            });
+
+            // RSVP buttons
+            const rsvpButtons = document.querySelectorAll('#events .btn-success');
+            rsvpButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent === 'RSVP') {
+                        this.textContent = 'Attending';
+                        this.classList.add('btn-outline-success');
+                        this.classList.remove('btn-success');
+
+                        // Show notification
+                        showNotification('You are now attending this event!', 'success');
+                    } else {
+                        this.textContent = 'RSVP';
+                        this.classList.add('btn-success');
+                        this.classList.remove('btn-outline-success');
+
+                        // Show notification
+                        showNotification('You are no longer attending this event.');
+                    }
+                });
+            });
+
+            // Join group buttons
+            const joinButtons = document.querySelectorAll('#groups .btn-success');
+            joinButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent === 'Join Group') {
+                        this.textContent = 'Leave Group';
+                        this.classList.add('btn-outline-success');
+                        this.classList.remove('btn-success');
+
+                        // Show notification
+                        showNotification('You have joined the group!', 'success');
+                    } else {
+                        this.textContent = 'Join Group  'success');
+                    } else {
+                        this.textContent = 'Join Group';
+                        this.classList.add('btn-success');
+                        this.classList.remove('btn-outline-success');
+
+                        // Show notification
+                        showNotification('You have left the group.');
+                    }
+                });
+            });
+
+            // Contact seller buttons
+            const contactButtons = document.querySelectorAll('#marketplace .btn-success');
+            contactButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Show notification
+                    showNotification('Message sent to seller!', 'success');
+                });
+            });
+        });
+
+        // Function to create a new post
+        function createNewPost(content) {
+            // Create post element
+            const postCard = document.createElement('div');
+            postCard.className = 'post-card';
+
+            // Extract hashtags
+            const hashtags = content.match(/#\w+/g) || [];
+            const hashtagsHtml = hashtags.map(tag => `<span class="post-tag">${tag}</span>`).join('');
+
+            // Post HTML structure
+            postCard.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Your Avatar">
+                    </div>
+                    <div class="post-user-info">
+                        <h6>John Doe</h6>
+                        <p>Just now · Your Location</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p class="post-text">${content}</p>
+                    ${hashtags.length > 0 ? `<div class="post-tags">${hashtagsHtml}</div>` : ''}
+                </div>
+                <div class="post-actions">
+                    <div class="post-action" onclick="toggleLike(this)">
+                        <i class="far fa-heart"></i>
+                        <span>0 Likes</span>
+                    </div>
+                    <div class="post-action" onclick="toggleComments(this)">
+                        <i class="far fa-comment"></i>
+                        <span>0 Comments</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="far fa-share-square"></i>
+                        <span>Share</span>
+                    </div>
+                </div>
+                <div class="comments-section">
+                    <div class="add-comment">
+                        <div class="add-comment-avatar">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Your Avatar">
+                        </div>
+                        <div class="add-comment-input">
+                            <input type="text" placeholder="Write a comment...">
+                            <button><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Insert at the top of the feed
+            const feedTab = document.getElementById('feed');
+            const createPost = feedTab.querySelector('.create-post');
+            feedTab.insertBefore(postCard, createPost.nextSibling);
+        }
+
+        // Function to show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'primary'} notification`;
+            notification.textContent = message;
+
+            // Add to body
+            document.body.appendChild(notification);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
