@@ -3,3 +3,6 @@
 
 [context.production.environment]
   NETLIFY_USE_FOCAL = "true"
+[build]
+  command = "npm run build"  # or your respective build command
+  publish = "build"  # or the correct directory
