@@ -1,8 +1,20 @@
 [build]
   python_version = "3.10"
-
-[context.production.environment]
-  PYTHON_VERSION = "3.10.11"
+  environment = { PYTHON_VERSION = "3.10.11" }
 
 [build.environment]
   PYTHON_VERSION = "3.10.11"
+
+[context.production]
+  environment = { PYTHON_VERSION = "3.10.11" }
+
+[functions]
+  node_bundler = "esbuild"
+
+[build]
+  base = "/"
+  publish = "your-publish-dir" # Replace this with your actual publish dir (e.g. "dist" or "build")
+  command = "your-build-command" # Optional: if you have one
+
+[context.production.environment]
+  NETLIFY_USE_FOCAL = "true"
